@@ -1,0 +1,81 @@
+# my_dbt/models/example/properties.yml
+version: 2
+models:
+ - name: table_a
+   config:
+     description: "Daily covid-19 cases since 2023"
+     columns:
+       - name: date
+         description: "Date of the COVID-19 report"
+         tests:
+           - not_null
+       - name: country_name
+         description: "Name of the country"
+         tests:
+           - not_null
+       - name: daily_cases
+         description: "New confirmed cases reported on this date"
+         tests:
+           - not_null
+       - name: daily_deaths
+         description: "New deaths reported on this date"
+       - name: total_cases
+         description: "Cumulative confirmed cases up to this date"
+ - name: table_b
+   config:
+     description: "A starter dbt model"
+     columns:
+       - name: id
+         description: "The primary key for this table"
+         columns:
+       - name: country_name
+         description: "Name of the country"
+         tests:
+           - not_null
+           - unique
+       - name: total_cases_2023
+         description: "Total COVID-19 cases in 2023"
+         tests:
+           - not_null
+       - name: total_deaths_2023
+         description: "Total COVID-19 deaths in 2023"
+       - name: case_fatality_rate
+         description: "Case fatality rate as a percentage"
+ - name: table_c
+   config:
+     description: "COVID-19 country performance analytics"
+     columns:
+      - name: country_name
+        tests:
+          - not_null
+      - name: cases_rank
+        description: "Country rank by total cases"
+      - name: fatality_rank
+        description: "Country rank by fatality rate"
+
+ - name: table_d
+   config:
+      description: "Regional risk analysis and business insights for African COVID-19 data"
+      columns:
+        - name: country_name
+          description: "Name of the African country"
+          tests:
+            - not_null
+        - name: total_cases
+          description: "Total COVID-19 cases"
+        - name: case_fatality_rate
+          description: "Case fatality rate as a percentage"
+        - name: cases_rank
+          description: "Country rank by total cases"
+        - name: fatality_rank
+          description: "Country rank by fatality rate"
+        - name: risk_category
+          description: "Risk classification based on fatality rate"
+          tests:
+            - accepted_values:
+                values: ['High Risk', 'Medium Risk', 'Low Risk']
+        - name: region
+          description: "Geographic region within Africa"
+          tests:
+            - accepted_values:
+                values: ['East Africa', 'West Africa', 'Southern Africa', 'North Africa', 'Other Africa']
